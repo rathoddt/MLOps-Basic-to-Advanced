@@ -1,12 +1,34 @@
-# Ignore virtual environments
-venv/
+# Exclude the virtual environment or unwanted directory
 mlops-01/
-*.pyc
+
+# Python cache files
 __pycache__/
+*.py[cod]
 *.pyo
-*.pyd
-.Python
-env/
-ENV/
-.venv/
+
+# Jupyter Notebook checkpoints
 .ipynb_checkpoints/
+
+# VSCode or PyCharm settings (if using)
+.vscode/
+.idea/
+
+# macOS and system files
+.DS_Store
+
+# Log and temp files
+*.log
+*.tmp
+*.swp
+
+# Env files
+.env
+.env.*
+
+# Pytest cache
+.pytest_cache/
+
+# Build and dist folders
+build/
+dist/
+*.egg-info/

@@ -1,0 +1,7 @@
+touch artifacts/.gitkeep
+touch config/.gitkeep
+touch notebook/.gitkeep
+touch src/.gitkeep
+touch static/.gitkeep
+touch templates/.gitkeep
+touch utils/.gitkeep
