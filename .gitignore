@@ -1,6 +1,5 @@
 # Ignore virtual environments
 venv/
-mlops-01/
 *.pyc
 __pycache__/
 *.pyo
