@@ -1,0 +1,12 @@
+# Ignore virtual environments
+venv/
+mlops-01/
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+env/
+ENV/
+.venv/
+.ipynb_checkpoints/
