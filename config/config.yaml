@@ -1,0 +1,5 @@
+data_ingestion:
+  bucket_name = "ai-data-enginnering-001"
+  bucket_file_name = "Hotel-Reservations.csv"
+  train_ration= 0.8
+  
