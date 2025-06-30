@@ -8,7 +8,7 @@ from src.custom_exception import CustomException
 from config.path_configs import *
 
 from utils.common_fuctions import read_yaml 
-
+import sys 
 logger = get_logger(__name__)
 
 class DataIngestion: 
@@ -33,7 +33,7 @@ class DataIngestion:
             logger.info(f"CSV file is successfulky downloaded to {RAW_FILE_PATH}")
         except Exception as e:
             logger.error("Error while reading CSV file")
-            raise CustomException("Failed to laod CSV file", e)
+            raise CustomException("Failed to laod CSV file", sys)
 
     def train_test_split(self):
         try:    
