@@ -1,10 +1,14 @@
 import os
+import sys
 import pandas as pd
 import numpy as np
 from src.logger import get_logger
 from src.custom_exception import CustomException
 from config.paths_config import *
+# from config.path_configs import *
 from utils.common_functions import read_yaml,load_data
+
+
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import LabelEncoder
 from imblearn.over_sampling import SMOTE
@@ -28,11 +32,13 @@ class DataProcessor:
             logger.info("Starting our Data Processing step")
 
             logger.info("Dropping the columns")
-            df.drop(columns=['Unnamed: 0', 'Booking_ID'] , inplace=True)
+            # df.drop(columns=['Unnamed: 0', 'Booking_ID'] , inplace=True)
+            df.drop(columns=['Booking_ID'] , inplace=True)
+
             df.drop_duplicates(inplace=True)
 
-            cat_cols = self.config["data_preprocessing"]["categorical_cols"]
-            num_cols = self.config["data_preprocessing"]["numerical_cols"]
+            cat_cols = self.config["data_processing"]["categorical_columns"]
+            num_cols = self.config["data_processing"]["numerical_columns"]
             logger.info("Applying Label Encoding")
 
             label_encoder = LabelEncoder()
@@ -58,7 +64,7 @@ class DataProcessor:
         
         except Exception as e:
             logger.error(f"Error during preprocess step {e}")
-            raise CustomException("Error while preprocess data", e)
+            raise CustomException("Error while preprocess data", sys)
 
     def balance_data(self,df):
         try:
@@ -77,7 +83,7 @@ class DataProcessor:
         
         except Exception as e:
             logger.error(f"Error during balancing data step {e}")
-            raise CustomException("Error while balancing data", e)
+            raise CustomException("Error while balancing data", sys)
 
     def select_features(self,df):
         try:
@@ -111,4 +117,48 @@ class DataProcessor:
         
         except Exception as e:
             logger.error(f"Error during feature selection step {e}")
-            raise CustomException("Error while feature selection", e)
+            raise CustomException("Error while feature selection", sys)
+
+    def save_data(self,df , file_path):
+        try:
+            logger.info("Saving our data in processed folder")
+
+            df.to_csv(file_path, index=False)
+
+            logger.info(f"Data saved sucesfuly to {file_path}")
+
+        except Exception as e:
+            logger.error(f"Error during saving data step {e}")
+            raise CustomException("Error while saving data", sys)
+
+    def process(self):
+        try:
+            logger.info("Loading data from RAW directory")
+
+            train_df = load_data(self.train_path)
+            test_df = load_data(self.test_path)
+
+            train_df = self.preprocess_data(train_df)
+            test_df = self.preprocess_data(test_df)
+
+            train_df = self.balance_data(train_df)
+            test_df = self.balance_data(test_df)
+
+            train_df = self.select_features(train_df)
+            test_df = test_df[train_df.columns]  
+
+            self.save_data(train_df,PROCESSED_TRAIN_DATA_PATH)
+            self.save_data(test_df , PROCESSED_TEST_DATA_PATH)
+            
+
+            logger.info("Data processing completed sucesfully")    
+        except Exception as e:
+            logger.error(f"Error during preprocessing pipeline {e}")
+            raise CustomException("Error while data preprocessing pipeline", sys)
+
+
+if __name__=="__main__":
+    logger.info(f"-------------------------------------------------")
+    processor = DataProcessor(TRAIN_FILE_PATH,TEST_FILE_PATH,PROCESSED_DIR,CONFIG_PATH)
+    processor.process()       
+    
