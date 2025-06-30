@@ -61,6 +61,7 @@ class DataIngestion:
 
 
 if __name__ == "__main__":
+    logger.info(f"-------------------------------------------------")
     data_ingestion=DataIngestion(read_yaml(CONFIG_PATH))
     data_ingestion.run()
 
