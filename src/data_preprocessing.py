@@ -33,4 +33,30 @@ class DataProcessor:
 
             cat_cols = self.config["data_preprocessing"]["categorical_cols"]
             num_cols = self.config["data_preprocessing"]["numerical_cols"]
+            logger.info("Applying Label Encoding")
+
+            label_encoder = LabelEncoder()
+            mappings={}
+
+            for col in cat_cols:
+                df[col] = label_encoder.fit_transform(df[col])
+                mappings[col] = {label:code for label,code in zip(label_encoder.classes_ , label_encoder.transform(label_encoder.classes_))}
+
+            logger.info("Label Mappings are : ")
+            for col,mapping in mappings.items():
+                logger.info(f"{col} : {mapping}")
+
+            logger.info("Doing Skewness HAndling")
+
+            skew_threshold = self.config["data_processing"]["skewness_threshold"]
+            skewness = df[num_cols].apply(lambda x:x.skew())
+
+            for column in skewness[skewness>skew_threshold].index:
+                df[column] = np.log1p(df[column])
+
+            return df
+        
+        except Exception as e:
+            logger.error(f"Error during preprocess step {e}")
+            raise CustomException("Error while preprocess data", e)
                   
