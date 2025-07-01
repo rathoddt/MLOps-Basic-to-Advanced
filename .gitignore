@@ -1,6 +1,6 @@
 # Exclude the virtual environment or unwanted directory
 mlops-01/
-
+mlruns/
 # Python cache files
 __pycache__/
 *.py[cod]
@@ -32,3 +32,4 @@ __pycache__/
 build/
 dist/
 *.egg-info/
+
