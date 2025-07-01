@@ -1,2 +1,29 @@
 export GOOGLE_APPLICATION_CREDENTIALS="/home/mdrathod_trading/md-data-engineering-001-719fe07b4e71.json"  
 mlflow ui
+
+
+docker run -d --name jenkins-dind --privileged -p 8080:8080 -p 50000:50000 \
+-v //var/run/docker.sock:/var/run/docker.sock \
+-v jenkins_home:/var/jenkins_home jenkins-dind
+
+Jenkins setup
+all dilip
+https://8080-cs-297007068304-default.cs-asia-southeast1-cash.cloudshell.dev/
+https://8080-cs-297007068304-default.cs-asia-southeast1-cash.cloudshell.dev/
+
+docker exec -u root -it jenkins-dind bash
+apt update -y
+apt install -y python3
+python3 --version
+ln -s /usr/bin/python3 /usr/bin/python
+python --version
+apt install -y python3-pip
+apt install -y python3-venv
+exit
+
+docker restart jenkins-dind
+
+
+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
+
+checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-token', url: 'https://github.com/rathoddt/MLOps-Basic-to-Advanced.git']])
