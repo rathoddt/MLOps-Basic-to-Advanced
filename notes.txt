@@ -1,1 +1,2 @@
 export GOOGLE_APPLICATION_CREDENTIALS="/home/mdrathod_trading/md-data-engineering-001-719fe07b4e71.json"  
+mlflow ui

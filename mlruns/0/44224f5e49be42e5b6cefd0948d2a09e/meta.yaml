@@ -1,0 +1,14 @@
+artifact_uri: file:///home/mdrathod_trading/mlops/mlruns/0/44224f5e49be42e5b6cefd0948d2a09e/artifacts
+end_time: 1751364079642
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 44224f5e49be42e5b6cefd0948d2a09e
+run_name: fun-pig-426
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1751364069933
+status: 3
+tags: []
+user_id: mdrathod_trading

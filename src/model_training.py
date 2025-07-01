@@ -82,3 +82,76 @@ class ModelTraining:
         except Exception as e:
             logger.error(f"Error while training model {e}")
             raise CustomException("Failed to train model" ,  e)
+
+    def evaluate_model(self , model , X_test , y_test):
+        try:
+            logger.info("Evaluating our model")
+
+            y_pred = model.predict(X_test)
+
+            accuracy = accuracy_score(y_test,y_pred)
+            precision = precision_score(y_test,y_pred)
+            recall = recall_score(y_test,y_pred)
+            f1 = f1_score(y_test,y_pred)
+
+            logger.info(f"Accuracy Score : {accuracy}")
+            logger.info(f"Precision Score : {precision}")
+            logger.info(f"Recall Score : {recall}")
+            logger.info(f"F1 Score : {f1}")
+
+            return {
+                "accuracy" : accuracy,
+                "precison" : precision,
+                "recall" : recall,
+                "f1" : f1
+            }
+        except Exception as e:
+            logger.error(f"Error while evaluating model {e}")
+            raise CustomException("Failed to evaluate model" ,  e)
+        
+    def save_model(self,model):
+        try:
+            os.makedirs(os.path.dirname(self.model_output_path),exist_ok=True)
+
+            logger.info("saving the model")
+            joblib.dump(model , self.model_output_path)
+            logger.info(f"Model saved to {self.model_output_path}")
+
+        except Exception as e:
+            logger.error(f"Error while saving model {e}")
+            raise CustomException("Failed to save model" ,  e)
+    
+    def run(self):
+        try:
+            with mlflow.start_run():
+                logger.info("Starting our Model Training pipeline")
+
+                logger.info("Starting our MLFLOW experimentation")
+
+                logger.info("Logging the training and testing datset to MLFLOW")
+                mlflow.log_artifact(self.train_path , artifact_path="datasets")
+                mlflow.log_artifact(self.test_path , artifact_path="datasets")
+
+                X_train,y_train,X_test,y_test =self.load_and_split_data()
+                best_lgbm_model = self.train_lgbm(X_train,y_train)
+                metrics = self.evaluate_model(best_lgbm_model ,X_test , y_test)
+                self.save_model(best_lgbm_model)
+
+                logger.info("Logging the model into MLFLOW")
+                mlflow.log_artifact(self.model_output_path)
+
+                logger.info("Logging Params and metrics to MLFLOW")
+                mlflow.log_params(best_lgbm_model.get_params())
+                mlflow.log_metrics(metrics)
+
+                logger.info("Model Training sucesfullly completed")
+
+        except Exception as e:
+            logger.error(f"Error in model training pipeline {e}")
+            raise CustomException("Failed during model training pipeline" ,  e)
+        
+if __name__=="__main__":
+    logger.info(f"-------------------------------------------------")
+    trainer = ModelTraining(PROCESSED_TRAIN_DATA_PATH,PROCESSED_TEST_DATA_PATH,MODEL_OUTPUT_PATH)
+    trainer.run()
+        
