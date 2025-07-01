@@ -24,6 +24,6 @@ exit
 docker restart jenkins-dind
 
 
-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
+
 
 checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-token', url: 'https://github.com/rathoddt/MLOps-Basic-to-Advanced.git']])
