@@ -1,0 +1,14 @@
+artifact_uri: file:///home/mdrathod_trading/mlops/mlruns/0/81b1c7629f714d9f9421f4915028d884/artifacts
+end_time: 1751365886798
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 81b1c7629f714d9f9421f4915028d884
+run_name: amusing-conch-253
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1751365876261
+status: 3
+tags: []
+user_id: mdrathod_trading

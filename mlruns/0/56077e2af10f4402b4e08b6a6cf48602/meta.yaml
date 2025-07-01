@@ -1,0 +1,14 @@
+artifact_uri: file:///home/mdrathod_trading/mlops/mlruns/0/56077e2af10f4402b4e08b6a6cf48602/artifacts
+end_time: 1751365792725
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 56077e2af10f4402b4e08b6a6cf48602
+run_name: persistent-bee-517
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1751365782512
+status: 3
+tags: []
+user_id: mdrathod_trading

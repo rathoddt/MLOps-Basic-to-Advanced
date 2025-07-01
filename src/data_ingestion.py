@@ -7,7 +7,7 @@ from src.custom_exception import CustomException
 
 from config.paths_config import *
 
-from utils.common_fuctions import read_yaml 
+from utils.common_functions import read_yaml 
 import sys 
 logger = get_logger(__name__)
 
