@@ -1,5 +1,6 @@
 # Exclude the virtual environment or unwanted directory
-mlops-01/
+project1-hotel-reservation-prediction/mlops-01/
+project2-anime-rs/project02/
 mlruns/
 # Python cache files
 __pycache__/
