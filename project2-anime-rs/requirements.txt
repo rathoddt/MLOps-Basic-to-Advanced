@@ -1,9 +1,9 @@
 pandas
 numpy
 setuptools
-# google-cloud-storage
+google-cloud-storage
 # scikit-learn
-# pyyaml
+pyyaml
 # imbalanced-learn
 # lightgbm
 # mlflow
